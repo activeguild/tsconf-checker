@@ -46,6 +46,7 @@ const checkCompilerOptions = (
     errMsgs.push(...checkJsOptions(conpilerOptions));
     errMsgs.push(...checkDeprecatedOptions(conpilerOptions));
     // errMsgs.push(...checkJsxOptions(conpilerOptions));
+    errMsgs.push(...checkRecommendOptinos(conpilerOptions));
 
     return errMsgs;
 };
@@ -147,27 +148,64 @@ const checkDeprecatedOptions = ({
     return errMsgs;
 };
 
-// [Note]: Native Error
-// const checkJsxOptions = ({ jsx }: CompilerOptionsExtends) => {
-//     const errMsgs: ErrMsg[] = [];
-//     const validJsxEmits = Object.entries(JsxEmit).reduce<string[]>(
-//         (prev, [key, value]) => {
-//             if (Number.isFinite(Number(key)) || Number(value) === 0) {
-//                 return prev;
-//             }
-//             return [...prev, key];
-//         },
-//         []
-//     );
+const checkRecommendOptinos = ({
+    skipLibCheck,
+    esModuleInterop,
+    forceConsistentCasingInFileNames,
+}: CompilerOptionsExtends): ErrMsg[] => {
+    const errMsgs: ErrMsg[] = [];
 
-//     if (jsx !== undefined && !validJsxEmits.includes(JsxEmit[jsx])) {
-//         errMsgs.push(
-//             `'jsx' option must be set to ${validJsxEmits.join(', ')}.`
-//         );
-//     }
+    if (skipLibCheck) {
+        errMsgs.push(
+            `Warning: 'skipLibCheck' option is officially recommended to be false.`
+        );
+    }
 
-//     return errMsgs;
-// };
+    if (esModuleInterop) {
+        errMsgs.push(
+            `Warning: 'skipLibCheck' option is officially recommended to be false.`
+        );
+    }
+
+    if (forceConsistentCasingInFileNames) {
+        errMsgs.push(
+            `Warning: 'skipLibCheck' option is officially recommended to be false.`
+        );
+    }
+
+    return errMsgs;
+};
+
+const checkJsxOptions = ({
+    jsx,
+    jsxFactory,
+    jsxFragmentFactory,
+}: CompilerOptionsExtends) => {
+    const errMsgs: ErrMsg[] = [];
+
+    // [Note]: Native Error
+    // const validJsxEmits = Object.entries(JsxEmit).reduce<string[]>(
+    //     (prev, [key, value]) => {
+    //         if (Number.isFinite(Number(key)) || Number(value) === 0) {
+    //             return prev;
+    //         }
+    //         return [...prev, key];
+    //     },
+    //     []
+    // );
+    // if (jsx !== undefined && !validJsxEmits.includes(JsxEmit[jsx])) {
+    //     errMsgs.push(
+    //         `'jsx' option must be set to ${validJsxEmits.join(', ')}.`
+    //     );
+    // }
+
+    if (!jsxFactory && jsxFragmentFactory) {
+        errMsgs.push(
+            `'jsxFragmentFactory' option requires the setting of the 'jsxFactory' option.`
+        );
+    }
+    return errMsgs;
+};
 
 // export type StrictOptionName =
 // | "noImplicitAny"
