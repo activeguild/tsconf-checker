@@ -1,0 +1,23 @@
+{
+    "checkStrictOptions": {
+        "strict": "Warning: value0 is implicitly true because 'strict' option is true."
+    },
+    "checkJsOptions": {
+        "checkJs": "Warning: 'checkJs' option cannot be set to true when 'allowJs' option is false or undefined.",
+        "maxNodeModuleJsDepth": "Warning: 'maxNodeModuleJsDepth' cannot be set when 'allowJs' option is false or undefined."
+    },
+    "checkDeprecatedOptions": {
+        "out": "Warning: 'out' option is deprecated. Use 'outfile' option instead.",
+        "suppressExcessPropertyErrors": "Warning: 'suppressExcessPropertyErrors' option is deprecated in modern codebases. Use '@ts-ignore' comment instead.",
+        "suppressImplicitAnyIndexErrors": "Warning: 'suppressImplicitAnyIndexErrors' option is deprecated. Use '@ts-ignore' comment instead.",
+        "reactNamespace": "Warning: 'reactNamespace' option is deprecated. Use 'jsxFactory' comment instead."
+    },
+    "checkJsxOptions": {
+        "jsxFragmentFactory": "'jsxFragmentFactory' option requires the setting of the 'jsxFactory' option."
+    },
+    "checkRecommendOptinos": {
+        "skipLibCheck": "Warning: 'skipLibCheck' option is officially recommended to be false.",
+        "esModuleInterop": "Warning: 'esModuleInterop' option is officially recommended to be false.",
+        "forceConsistentCasingInFileNames": "Warning: 'forceConsistentCasingInFileNames' option is officially recommended to be false."
+    }
+}

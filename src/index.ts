@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { parseNative, TSConfckParseNativeError } from 'tsconfck';
 import { CompilerOptions } from 'typescript';
+import message from './message.json';
 
 type CompilerOptionsExtends = CompilerOptions & {
     out?: string;
@@ -37,7 +38,7 @@ export const main = async () => {
     }
 };
 
-const checkCompilerOptions = (
+export const checkCompilerOptions = (
     conpilerOptions: CompilerOptionsExtends
 ): ErrMsg[] => {
     const errMsgs: ErrMsg[] = [];
@@ -45,13 +46,22 @@ const checkCompilerOptions = (
     errMsgs.push(...checkStrictOptions(conpilerOptions));
     errMsgs.push(...checkJsOptions(conpilerOptions));
     errMsgs.push(...checkDeprecatedOptions(conpilerOptions));
-    // errMsgs.push(...checkJsxOptions(conpilerOptions));
+    errMsgs.push(...checkJsxOptions(conpilerOptions));
     errMsgs.push(...checkRecommendOptinos(conpilerOptions));
 
     return errMsgs;
 };
 
-const checkStrictOptions = ({
+// export type StrictOptionName =
+// | "noImplicitAny"
+// | "noImplicitThis"x
+// | "strictNullChecks"
+// | "strictFunctionTypes"
+// | "strictBindCallApply"
+// | "strictPropertyInitialization"
+// | "alwaysStrict"
+// | "useUnknownInCatchVariables"
+export const checkStrictOptions = ({
     strict,
     noImplicitAny,
     noImplicitThis,
@@ -84,7 +94,7 @@ const checkStrictOptions = ({
     ) as (keyof typeof strictOptions)[]) {
         if (strictOptions[key]) {
             errMsgs.push(
-                `Warning: '${key}' is implicitly true because 'strict' option is true.`
+                replaceMessageArgs(message.checkStrictOptions.strict, key)
             );
         }
     }
@@ -92,7 +102,7 @@ const checkStrictOptions = ({
     return errMsgs;
 };
 
-const checkJsOptions = ({
+export const checkJsOptions = ({
     allowJs,
     checkJs,
     maxNodeModuleJsDepth,
@@ -101,20 +111,16 @@ const checkJsOptions = ({
 
     if (!allowJs) {
         if (checkJs) {
-            errMsgs.push(
-                `Warning: 'checkJs' option cannot be set to true when 'allowJs' option is false or undefined.`
-            );
+            errMsgs.push(message.checkJsOptions.checkJs);
         }
         if (maxNodeModuleJsDepth !== undefined) {
-            errMsgs.push(
-                `Warning: 'maxNodeModuleJsDepth' cannot be set when 'allowJs' option is false or undefined.`
-            );
+            errMsgs.push(message.checkJsOptions.maxNodeModuleJsDepth);
         }
     }
     return errMsgs;
 };
 
-const checkDeprecatedOptions = ({
+export const checkDeprecatedOptions = ({
     out,
     suppressExcessPropertyErrors,
     suppressImplicitAnyIndexErrors,
@@ -123,32 +129,28 @@ const checkDeprecatedOptions = ({
     const errMsgs: ErrMsg[] = [];
 
     if (out) {
-        errMsgs.push(
-            `Warning: 'out' option is deprecated. Use 'outfile' option instead.`
-        );
+        errMsgs.push(message.checkDeprecatedOptions.out);
     }
 
     if (suppressExcessPropertyErrors) {
         errMsgs.push(
-            `Warning: 'suppressExcessPropertyErrors' option is deprecated in modern codebases. Use '@ts-ignore' comment instead.`
+            message.checkDeprecatedOptions.suppressExcessPropertyErrors
         );
     }
 
     if (suppressImplicitAnyIndexErrors) {
         errMsgs.push(
-            `Warning: 'suppressImplicitAnyIndexErrors' option is deprecated. Use '@ts-ignore' comment instead.`
+            message.checkDeprecatedOptions.suppressImplicitAnyIndexErrors
         );
     }
 
     if (reactNamespace) {
-        errMsgs.push(
-            `Warning: 'reactNamespace' option is deprecated. Use 'jsxFactory' comment instead.`
-        );
+        errMsgs.push(message.checkDeprecatedOptions.reactNamespace);
     }
     return errMsgs;
 };
 
-const checkRecommendOptinos = ({
+export const checkRecommendOptinos = ({
     skipLibCheck,
     esModuleInterop,
     forceConsistentCasingInFileNames,
@@ -156,27 +158,23 @@ const checkRecommendOptinos = ({
     const errMsgs: ErrMsg[] = [];
 
     if (skipLibCheck) {
-        errMsgs.push(
-            `Warning: 'skipLibCheck' option is officially recommended to be false.`
-        );
+        errMsgs.push(message.checkRecommendOptinos.skipLibCheck);
     }
 
     if (esModuleInterop) {
-        errMsgs.push(
-            `Warning: 'skipLibCheck' option is officially recommended to be false.`
-        );
+        errMsgs.push(message.checkRecommendOptinos.esModuleInterop);
     }
 
     if (forceConsistentCasingInFileNames) {
         errMsgs.push(
-            `Warning: 'skipLibCheck' option is officially recommended to be false.`
+            message.checkRecommendOptinos.forceConsistentCasingInFileNames
         );
     }
 
     return errMsgs;
 };
 
-const checkJsxOptions = ({
+export const checkJsxOptions = ({
     jsx,
     jsxFactory,
     jsxFragmentFactory,
@@ -198,24 +196,18 @@ const checkJsxOptions = ({
     //         `'jsx' option must be set to ${validJsxEmits.join(', ')}.`
     //     );
     // }
-
     if (!jsxFactory && jsxFragmentFactory) {
-        errMsgs.push(
-            `'jsxFragmentFactory' option requires the setting of the 'jsxFactory' option.`
-        );
+        errMsgs.push(message.checkJsxOptions.jsxFragmentFactory);
     }
     return errMsgs;
 };
 
-// export type StrictOptionName =
-// | "noImplicitAny"
-// | "noImplicitThis"x
-// | "strictNullChecks"
-// | "strictFunctionTypes"
-// | "strictBindCallApply"
-// | "strictPropertyInitialization"
-// | "alwaysStrict"
-// | "useUnknownInCatchVariables"
-const strictCheck = () => {};
+const replaceMessageArgs = (src: string, ...args: string[]) => {
+    for (let i = 0; i < args.length; i++) {
+        src.replace(`value${i}`, args[i]);
+    }
+
+    return src;
+};
 
 main();
