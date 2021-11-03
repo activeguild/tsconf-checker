@@ -9,7 +9,7 @@ import message from './message.json';
 
 test('checkStrictOptions', () => {
     expect(checkStrictOptions({ strict: true, noImplicitAny: true })).toEqual([
-        "Warning: noImplicitAny is implicitly true because 'strict' option is true.",
+        "Warning: 'noImplicitAny' is implicitly true because 'strict' option is true.",
     ]);
 });
 

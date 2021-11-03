@@ -1,6 +1,6 @@
 {
     "checkStrictOptions": {
-        "strict": "Warning: value0 is implicitly true because 'strict' option is true."
+        "strict": "Warning: 'value0' is implicitly true because 'strict' option is true."
     },
     "checkJsOptions": {
         "checkJs": "Warning: 'checkJs' option cannot be set to true when 'allowJs' option is false or undefined.",
