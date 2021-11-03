@@ -1,7 +1,7 @@
 {
     "name": "tsconf-checker",
     "description": "Validate the tsconfig.json file used in the typescript file and display a warning.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
