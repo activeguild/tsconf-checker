@@ -9,16 +9,15 @@ type CompilerOptionsExtends = CompilerOptions & {
 
 type ErrMsg = string;
 
-export const main = async () => {
+export const main = async (fileName: string) => {
     const errMsgs: ErrMsg[] = [];
 
     try {
-        const tsConfigFile = await parseNative('index.ts');
+        const tsConfigFile = await parseNative(fileName);
 
         for (const error of tsConfigFile.result.errors) {
             errMsgs.push(`Warning: ${chalk.yellow(error.messageText)}`);
         }
-        console.log('tsConfigFile :>> ', tsConfigFile.result.errors);
         const { compilerOptions }: { compilerOptions: CompilerOptionsExtends } =
             tsConfigFile.tsconfig;
 
@@ -211,5 +210,3 @@ const replaceMessageArgs = (src: string, ...args: string[]) => {
 
     return src;
 };
-
-main();
