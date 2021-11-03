@@ -35,6 +35,19 @@ For example, if the following tsconfig.json file exists.
 npx tsconf-checker index.ts
 ```
 
+or
+
+```
+npm i -D tsconf-checker
+```
+
+```check.ts
+#!/usr/bin/env node
+import { checkTsconf } from 'tsconf-checker';
+
+checkTsconf('index.ts');
+```
+
 A warning is displayed as shown below.
 
 ```bash
