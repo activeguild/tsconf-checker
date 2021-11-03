@@ -26,6 +26,8 @@ export const main = async () => {
     } catch (e: unknown) {
         if (e instanceof TSConfckParseNativeError) {
             errMsgs.push(`Warning: ${e.diagnostic.messageText}`);
+        } else if (e instanceof Error) {
+            errMsgs.push(`Errpr: ${e.name}\n${e.message}\n${e.stack}`);
         }
     }
 
