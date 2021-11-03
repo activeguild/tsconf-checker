@@ -1,8 +1,9 @@
 {
     "name": "tsconf-checker",
-    "description": "Check the tsconfig.json file.",
+    "description": "Validate the tsconfig.json file used in the typescript file and display a warning.",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc --project tsconfig.json",
         "test": "jest --coverage",
@@ -13,8 +14,14 @@
         "type": "git",
         "url": "git+https://github.com/activeguild/tsconf-checker.git"
     },
-    "author": "",
-    "license": "ISC",
+    "keywords": [
+        "typescript",
+        "checker",
+        "check",
+        "validate"
+    ],
+    "author": "j1ngzoue",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/activeguild/tsconf-checker/issues"
     },
@@ -33,12 +40,12 @@
         "eslint": "^8.1.0",
         "jest": "^27.3.1",
         "prettier": "^2.4.1",
-        "regenerator-runtime": "^0.13.9",
-        "typescript": "^4.4.4"
+        "regenerator-runtime": "^0.13.9"
     },
     "dependencies": {
         "chalk": "^4.1.2",
         "commander": "^8.3.0",
-        "tsconfck": "^1.1.0"
+        "tsconfck": "^1.1.0",
+        "typescript": "^4.4.4"
     }
 }

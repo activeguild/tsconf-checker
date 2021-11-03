@@ -7,6 +7,7 @@
 # tsconf-checker
 
 Validate the tsconfig.json file used in the typescript file and display a warning.
+
 Supports TypeScript version 4.4.x.
 
 ## Install
