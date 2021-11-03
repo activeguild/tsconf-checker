@@ -205,7 +205,7 @@ export const checkJsxOptions = ({
 
 const replaceMessageArgs = (src: string, ...args: string[]) => {
     for (let i = 0; i < args.length; i++) {
-        src.replace(`value${i}`, args[i]);
+        src = src.replace(`value${i}`, args[i]);
     }
 
     return src;
