@@ -10,12 +10,6 @@ Validate the tsconfig.json file used in the typescript file and display a warnin
 
 Supports TypeScript version 4.4.x.
 
-## Install
-
-```bash
-npm i -D tsconf-checker
-```
-
 ## Usage
 
 For example, if the following tsconfig.json file exists.
