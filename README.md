@@ -1,7 +1,7 @@
 <h1 align="center">tsconf-checker ⚡ Welcome 😀</h1>
 
 <p align="left">
-  <a href="https://github.com/actions/setup-node"><img alt="GitHub Actions status" src="https://github.com/activeguild/classnames-generics/workflows/automatic%20release/badge.svg" style="max-width:100%;"></a>
+  <a href="https://github.com/actions/setup-node"><img alt="GitHub Actions status" src="https://github.com/activeguild/tsconf-checker/workflows/automatic%20release/badge.svg" style="max-width:100%;"></a>
 </p>
 
 # tsconf-checker
