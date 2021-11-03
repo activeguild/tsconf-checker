@@ -9,7 +9,7 @@ type CompilerOptionsExtends = CompilerOptions & {
 
 type ErrMsg = string;
 
-export const main = async (fileName: string) => {
+export const checkTsconf = async (fileName: string) => {
     const errMsgs: ErrMsg[] = [];
 
     try {
