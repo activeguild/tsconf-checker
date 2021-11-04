@@ -26,7 +26,7 @@ export const checkTsconf = async (fileName: string) => {
         if (e instanceof TSConfckParseNativeError) {
             errMsgs.push(`Warning: ${e.diagnostic.messageText}`);
         } else if (e instanceof Error) {
-            errMsgs.push(`Errpr: ${e.name}\n${e.message}\n${e.stack}`);
+            errMsgs.push(`Error: ${e.name}\n${e.message}\n${e.stack}`);
         }
     }
 
@@ -49,6 +49,7 @@ export const checkCompilerOptions = (
     errMsgs.push(...checkDeprecatedOptions(conpilerOptions));
     errMsgs.push(...checkJsxOptions(conpilerOptions));
     errMsgs.push(...checkRecommendOptinos(conpilerOptions));
+    errMsgs.push(...checkDefaultOptions(conpilerOptions));
 
     return errMsgs;
 };
@@ -152,11 +153,16 @@ export const checkDeprecatedOptions = ({
 };
 
 export const checkRecommendOptinos = ({
+    exactOptionalPropertyTypes,
     skipLibCheck,
     esModuleInterop,
     forceConsistentCasingInFileNames,
 }: CompilerOptionsExtends): ErrMsg[] => {
     const errMsgs: ErrMsg[] = [];
+
+    if (exactOptionalPropertyTypes) {
+        errMsgs.push(message.checkRecommendOptinos.skipLibCheck);
+    }
 
     if (skipLibCheck) {
         errMsgs.push(message.checkRecommendOptinos.skipLibCheck);
@@ -200,6 +206,141 @@ export const checkJsxOptions = ({
     if (!jsxFactory && jsxFragmentFactory) {
         errMsgs.push(message.checkJsxOptions.jsxFragmentFactory);
     }
+    return errMsgs;
+};
+
+export const checkDefaultOptions = ({
+    exactOptionalPropertyTypes,
+    noFallthroughCasesInSwitch,
+    noImplicitOverride,
+    noImplicitReturns,
+    noPropertyAccessFromIndexSignature,
+    noUncheckedIndexedAccess,
+    noUnusedLocals,
+    noUnusedParameters,
+    allowUmdGlobalAccess,
+    resolveJsonModule,
+    declarationMap,
+    downlevelIteration,
+    emitBOM,
+    emitDeclarationOnly,
+    importHelpers,
+    inlineSourceMap,
+    inlineSources,
+    noEmit,
+    noEmitHelpers,
+    noEmitOnError,
+    preserveValueImports,
+    removeComments,
+    sourceMap,
+    disableSizeLimit,
+    esModuleInterop,
+    forceConsistentCasingInFileNames,
+    isolatedModules,
+    preserveSymlinks,
+    keyofStringsOnly,
+    noImplicitUseStrict,
+    noStrictGenericChecks,
+    suppressExcessPropertyErrors,
+    suppressImplicitAnyIndexErrors,
+    emitDecoratorMetadata,
+    experimentalDecorators,
+    noLib,
+    diagnostics,
+    explainFiles,
+    extendedDiagnostics,
+    listEmittedFiles,
+    listFiles,
+    traceResolution,
+    composite,
+    disableReferencedProjectLoad,
+    disableSolutionSearching,
+    disableSourceOfProjectReferenceRedirect,
+    noErrorTruncation,
+    preserveWatchOutput,
+    skipDefaultLibCheck,
+    skipLibCheck,
+    maxNodeModuleJsDepth,
+    charset,
+    pretty,
+}: CompilerOptionsExtends) => {
+    const errMsgs: ErrMsg[] = [];
+
+    const defaultOptions = {
+        exactOptionalPropertyTypes,
+        noFallthroughCasesInSwitch,
+        noImplicitOverride,
+        noImplicitReturns,
+        noPropertyAccessFromIndexSignature,
+        noUncheckedIndexedAccess,
+        noUnusedLocals,
+        noUnusedParameters,
+        allowUmdGlobalAccess,
+        resolveJsonModule,
+        declarationMap,
+        downlevelIteration,
+        emitBOM,
+        emitDeclarationOnly,
+        importHelpers,
+        inlineSourceMap,
+        inlineSources,
+        noEmit,
+        noEmitHelpers,
+        noEmitOnError,
+        preserveValueImports,
+        removeComments,
+        sourceMap,
+        disableSizeLimit,
+        esModuleInterop,
+        forceConsistentCasingInFileNames,
+        isolatedModules,
+        preserveSymlinks,
+        keyofStringsOnly,
+        noImplicitUseStrict,
+        noStrictGenericChecks,
+        suppressExcessPropertyErrors,
+        suppressImplicitAnyIndexErrors,
+        emitDecoratorMetadata,
+        experimentalDecorators,
+        noLib,
+        diagnostics,
+        explainFiles,
+        extendedDiagnostics,
+        listEmittedFiles,
+        listFiles,
+        traceResolution,
+        composite,
+        disableReferencedProjectLoad,
+        disableSolutionSearching,
+        disableSourceOfProjectReferenceRedirect,
+        noErrorTruncation,
+        preserveWatchOutput,
+        skipDefaultLibCheck,
+        skipLibCheck,
+    };
+
+    for (const key of Object.keys(
+        defaultOptions
+    ) as (keyof typeof defaultOptions)[]) {
+        if (defaultOptions[key] === false) {
+            errMsgs.push(
+                replaceMessageArgs(message.checkDefaultOprions.default, key)
+            );
+        }
+    }
+
+    if (maxNodeModuleJsDepth === 0) {
+        errMsgs.push(message.checkDefaultOprions.maxNodeModuleJsDepth);
+    }
+
+    if (charset === 'utf-8') {
+        errMsgs.push(message.checkDefaultOprions.charset);
+    }
+
+    if (pretty === true) {
+        errMsgs.push(message.checkDefaultOprions.pretty);
+    }
+
     return errMsgs;
 };
 

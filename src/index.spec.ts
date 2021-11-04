@@ -1,4 +1,5 @@
 import {
+    checkDefaultOptions,
     checkDeprecatedOptions,
     checkJsOptions,
     checkJsxOptions,
@@ -52,5 +53,17 @@ test('checkRecommendOptinos', () => {
 test('checkJsxOptions', () => {
     expect(checkJsxOptions({ jsxFragmentFactory: 'React.Fragment' })).toEqual([
         message.checkJsxOptions.jsxFragmentFactory,
+    ]);
+});
+
+test('checkDefaultOptions', () => {
+    expect(checkDefaultOptions({ exactOptionalPropertyTypes: false })).toEqual([
+        "Warning: 'exactOptionalPropertyTypes' option defaults to false.",
+    ]);
+    expect(checkDefaultOptions({ charset: 'utf-8' })).toEqual([
+        message.checkDefaultOprions.charset,
+    ]);
+    expect(checkDefaultOptions({ pretty: true })).toEqual([
+        message.checkDefaultOprions.pretty,
     ]);
 });

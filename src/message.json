@@ -16,8 +16,15 @@
         "jsxFragmentFactory": "'jsxFragmentFactory' option requires the setting of the 'jsxFactory' option."
     },
     "checkRecommendOptinos": {
+        "exactOptionalPropertyTypes": "Warning: 'exactOptionalPropertyTypes' option is officially recommended to be false.",
         "skipLibCheck": "Warning: 'skipLibCheck' option is officially recommended to be false.",
         "esModuleInterop": "Warning: 'esModuleInterop' option is officially recommended to be false.",
         "forceConsistentCasingInFileNames": "Warning: 'forceConsistentCasingInFileNames' option is officially recommended to be false."
+    },
+    "checkDefaultOprions": {
+        "default": "Warning: 'value0' option defaults to false.",
+        "maxNodeModuleJsDepth": "Warning: 'maxNodeModuleJsDepth' option defaults to zero.",
+        "charset": "Warning: 'charset' option defaults to utf-8.",
+        "pretty": "Warning: 'pretty' option defaults to true."
     }
 }
