@@ -1,0 +1,8 @@
+.vscode
+.github
+src
+release.sh
+tools
+.prettierignore
+.prettierrc.js
+jest.config.js
